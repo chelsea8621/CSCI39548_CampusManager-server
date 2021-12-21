@@ -38,6 +38,7 @@ router.get('/:id', ash(async(req, res) => {
 
 /** ADD NEW STUDENT */
 router.post('/', function(req, res, next) {
+  console.log(req.body);
   Student.create(req.body)
     .then(createdStudent => res.status(200).json(createdStudent))
     .catch(err => next(err));
@@ -58,9 +59,9 @@ router.delete('/:id', function(req, res, next) {
 
 router.put('/:id', ash(async(req, res) => {
   await Student.update(req.body,
-        { where: {id: req.params.id} }
+        { where: {id: req.params.id}, include: [Campus] }
   );
-  let student = await Student.findByPk(req.params.id);
+  let student = await Student.findByPk(req.params.id, { include: [Campus] });
   res.status(201).json(student);
 }));
 

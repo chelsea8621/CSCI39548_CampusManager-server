@@ -35,6 +35,7 @@ router.post('/', ash(async(req, res) => {
 
 // Edit Campus
 router.put('/:id', ash(async(req, res) => {
+  console.log(req.body),
   await Campus.update(req.body, {
     where: {
       id: req.params.id
